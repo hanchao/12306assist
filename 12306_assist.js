@@ -31,10 +31,11 @@ if ((path == "/otsweb/loginAction.do" && location.search != '?method=initForMy12
 					console.log("错误：" + json.randError);
 				} else {
 					console.log("登录随机码 -&gt; " + json.loginRand);
-					$("#loginRand").val(json.loginRand);
-					
+
 					submitForm();
-		
+					//保存用户名密码
+					localStorage.setItem("username",$("#UserName").val());
+					localStorage.setItem("password",$("#password").val());
 				}
 			},
 			error: function (xhr) {
@@ -60,7 +61,7 @@ if ((path == "/otsweb/loginAction.do" && location.search != '?method=initForMy12
 			timeout: 10000,
 			dataType: "text",
 			success: function (html) {
-				
+				console.log(html);
 				var m = html.match(/var\s+message\s*=\s*"([^"]*)/);
 				msg = m && m[1] ? m[1] : "&lt;未知信息&gt;";
 	
@@ -84,15 +85,19 @@ if ((path == "/otsweb/loginAction.do" && location.search != '?method=initForMy12
 		});
 	}
 	
-	$("#UserName").val("hanchao0123@hotmail.com");
-	$("#password").val("chao19860123");
+	//读取用户名密码
+	$("#UserName").val(localStorage.getItem("username"));
+	$("#password").val(localStorage.getItem("password"));
+	
 	
 	$("#randCode").keyup(function (e) {
 		e = e || event;
 		if (e.charCode == 13 || $("#randCode").val().length == 4) {
 			console.log("logining");
+			// 输入4个验证码后自动登入
 			Login();
 		
 		}
 	});
+	
 }
