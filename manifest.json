@@ -1,0 +1,17 @@
+{
+  "name": "12306 assist",
+  "description": "12306 assist",
+  "version": "0.0.0.1",
+  "manifest_version": 2,
+  "icons": {
+    "128": "icon_128.png"
+  },
+
+  "content_scripts": [
+    {
+			"all_frames": true,
+      "matches": ["https://dynamic.12306.cn/otsweb/*"],
+      "js": ["jquery-1.9.0.min.js","12306_assist.js"]
+    }
+  ]
+}
